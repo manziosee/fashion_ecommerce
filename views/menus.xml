@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <menuitem id="menu_fashion_root" name="Fashion Ecommerce"/>
+    <menuitem id="menu_fashion_products" name="Products" parent="menu_fashion_root" action="action_fashion_products"/>
+    <menuitem id="menu_fashion_sales" name="Sales Orders" parent="menu_fashion_root" action="action_fashion_sales"/>
+</odoo>

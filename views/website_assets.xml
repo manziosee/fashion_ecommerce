@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- CSS assets are loaded via manifest.py assets section -->
+    <!-- No template inheritance needed for Odoo 17 -->
+</odoo>

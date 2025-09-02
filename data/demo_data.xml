@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Demo Customers for B2B and B2C -->
+    <record id="customer_john_doe_b2c" model="res.partner">
+        <field name="name">John Doe</field>
+        <field name="email">john.doe@example.com</field>
+        <field name="phone">+250788123456</field>
+        <field name="street">KG 15 Ave</field>
+        <field name="city">Kigali</field>
+        <field name="country_id" ref="base.rw"/>
+        <field name="customer_rank">1</field>
+        <field name="is_company">False</field>
+    </record>
+
+    <record id="customer_fashion_boutique_b2b" model="res.partner">
+        <field name="name">Kigali Fashion Boutique</field>
+        <field name="email">orders@kigalifashion.rw</field>
+        <field name="phone">+250788987654</field>
+        <field name="street">KN 3 Rd</field>
+        <field name="city">Kigali</field>
+        <field name="country_id" ref="base.rw"/>
+        <field name="customer_rank">1</field>
+        <field name="is_company">True</field>
+    </record>
+
+    <record id="customer_mary_smith_b2c" model="res.partner">
+        <field name="name">Mary Smith</field>
+        <field name="email">mary.smith@example.com</field>
+        <field name="phone">+250788555777</field>
+        <field name="street">KG 11 Ave</field>
+        <field name="city">Kigali</field>
+        <field name="country_id" ref="base.rw"/>
+        <field name="customer_rank">1</field>
+        <field name="is_company">False</field>
+    </record>
+
+    <!-- Demo Fashion Products -->
+    <!-- Men's Clothing -->
+    <record id="product_mens_shirt_nike" model="product.template">
+        <field name="name">Nike Men's Casual Shirt</field>
+        <field name="brand">Nike</field>
+        <field name="target_audience">men</field>
+        <field name="clothing_size">l</field>
+        <field name="color">Blue</field>
+        <field name="material">Cotton</field>
+        <field name="season">all_season</field>
+        <field name="list_price">45.00</field>
+        <field name="standard_price">25.00</field>
+        <field name="type">product</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="min_stock_level">15.0</field>
+        <field name="max_stock_level">100.0</field>
+    </record>
+
+    <record id="product_mens_jeans_levis" model="product.template">
+        <field name="name">Levi's Men's Classic Jeans</field>
+        <field name="brand">Levi's</field>
+        <field name="target_audience">men</field>
+        <field name="clothing_size">m</field>
+        <field name="color">Dark Blue</field>
+        <field name="material">Denim</field>
+        <field name="season">all_season</field>
+        <field name="list_price">85.00</field>
+        <field name="standard_price">50.00</field>
+        <field name="type">product</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="min_stock_level">10.0</field>
+        <field name="max_stock_level">80.0</field>
+    </record>
+
+    <record id="product_mens_jacket_adidas" model="product.template">
+        <field name="name">Adidas Men's Winter Jacket</field>
+        <field name="brand">Adidas</field>
+        <field name="target_audience">men</field>
+        <field name="clothing_size">xl</field>
+        <field name="color">Black</field>
+        <field name="material">Polyester</field>
+        <field name="season">winter</field>
+        <field name="list_price">120.00</field>
+        <field name="standard_price">70.00</field>
+        <field name="type">product</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="min_stock_level">8.0</field>
+        <field name="max_stock_level">50.0</field>
+    </record>
+
+    <!-- Women's Clothing -->
+    <record id="product_womens_dress_zara" model="product.template">
+        <field name="name">Zara Women's Summer Dress</field>
+        <field name="brand">Zara</field>
+        <field name="target_audience">women</field>
+        <field name="clothing_size">m</field>
+        <field name="color">Red</field>
+        <field name="material">Cotton Blend</field>
+        <field name="season">summer</field>
+        <field name="list_price">65.00</field>
+        <field name="standard_price">35.00</field>
+        <field name="type">product</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="min_stock_level">12.0</field>
+        <field name="max_stock_level">75.0</field>
+    </record>
+
+    <record id="product_womens_blouse_hm" model="product.template">
+        <field name="name">H&amp;M Women's Elegant Blouse</field>
+        <field name="brand">H&amp;M</field>
+        <field name="target_audience">women</field>
+        <field name="clothing_size">s</field>
+        <field name="color">White</field>
+        <field name="material">Silk</field>
+        <field name="season">all_season</field>
+        <field name="list_price">55.00</field>
+        <field name="standard_price">30.00</field>
+        <field name="type">product</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="min_stock_level">20.0</field>
+        <field name="max_stock_level">90.0</field>
+    </record>
+
+    <record id="product_womens_jeans_gap" model="product.template">
+        <field name="name">GAP Women's Skinny Jeans</field>
+        <field name="brand">GAP</field>
+        <field name="target_audience">women</field>
+        <field name="clothing_size">m</field>
+        <field name="color">Light Blue</field>
+        <field name="material">Stretch Denim</field>
+        <field name="season">all_season</field>
+        <field name="list_price">75.00</field>
+        <field name="standard_price">45.00</field>
+        <field name="type">product</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="min_stock_level">15.0</field>
+        <field name="max_stock_level">85.0</field>
+    </record>
+
+    <!-- Children's Clothing -->
+    <record id="product_kids_tshirt_disney" model="product.template">
+        <field name="name">Disney Kids' Mickey Mouse T-Shirt</field>
+        <field name="brand">Disney</field>
+        <field name="target_audience">children</field>
+        <field name="clothing_size">m</field>
+        <field name="color">Yellow</field>
+        <field name="material">Cotton</field>
+        <field name="season">all_season</field>
+        <field name="list_price">25.00</field>
+        <field name="standard_price">12.00</field>
+        <field name="type">product</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="min_stock_level">25.0</field>
+        <field name="max_stock_level">120.0</field>
+    </record>
+
+    <record id="product_kids_shorts_nike" model="product.template">
+        <field name="name">Nike Kids' Sports Shorts</field>
+        <field name="brand">Nike</field>
+        <field name="target_audience">children</field>
+        <field name="clothing_size">s</field>
+        <field name="color">Green</field>
+        <field name="material">Polyester</field>
+        <field name="season">summer</field>
+        <field name="list_price">30.00</field>
+        <field name="standard_price">18.00</field>
+        <field name="type">product</field>
+        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="min_stock_level">20.0</field>
+        <field name="max_stock_level">100.0</field>
+    </record>
+
+    <!-- Demo data will be added after module installation -->
+    <!-- Sales orders and stock can be created manually for demo purposes -->
+
+</odoo>

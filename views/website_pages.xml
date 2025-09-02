@@ -1,0 +1,126 @@
+<odoo>
+    <template id="homepage" name="Fashion Homepage">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <section class="fashion-hero bg-primary text-white py-5">
+                    <div class="container text-center">
+                        <h1 class="display-4 mb-4">Welcome to FashionEcommerce</h1>
+                        <p class="lead mb-5">Your premier destination for quality clothing from international brands</p>
+                        <p class="mb-4">Serving both B2C and B2B customers across Rwanda</p>
+                        <a href="/shop" class="btn btn-light btn-lg">Shop Now</a>
+                    </div>
+                </section>
+                
+                <section class="py-5">
+                    <div class="container">
+                        <h2 class="text-center mb-5">Shop by Category</h2>
+                        <div class="row">
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 text-center">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Men's Collection</h5>
+                                        <p class="card-text">Discover our latest men's fashion from top brands like Nike, Levi's, and Adidas</p>
+                                        <a href="/shop?target_audience=men" class="btn btn-primary">Shop Men's</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 text-center">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Women's Collection</h5>
+                                        <p class="card-text">Elegant and trendy women's clothing from Zara, H&amp;M, and GAP</p>
+                                        <a href="/shop?target_audience=women" class="btn btn-primary">Shop Women's</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="card h-100 text-center">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Children's Collection</h5>
+                                        <p class="card-text">Fun and comfortable clothing for kids from Disney, Nike, and more</p>
+                                        <a href="/shop?target_audience=children" class="btn btn-primary">Shop Kids'</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section class="bg-light py-5">
+                    <div class="container text-center">
+                        <h2 class="mb-4">Why Choose FashionEcommerce?</h2>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Quality Brands</h5>
+                                <p>International brands you trust</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>B2B &amp; B2C</h5>
+                                <p>Serving both businesses and individuals</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>Fast Delivery</h5>
+                                <p>Quick delivery across Rwanda</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>Easy Returns</h5>
+                                <p>Hassle-free return policy</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="shop_page" name="Shop Page">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <section class="fashion-shop py-5">
+                    <div class="container">
+                        <div class="row mb-4">
+                            <div class="col-12">
+                                <h2>Products - <t t-esc="audience.title() if audience else 'All Categories'"/></h2>
+                                <nav aria-label="Category filter">
+                                    <div class="btn-group" role="group">
+                                        <a href="/shop" class="btn btn-outline-primary">All</a>
+                                        <a href="/shop?target_audience=men" class="btn btn-outline-primary">Men</a>
+                                        <a href="/shop?target_audience=women" class="btn btn-outline-primary">Women</a>
+                                        <a href="/shop?target_audience=children" class="btn btn-outline-primary">Children</a>
+                                    </div>
+                                </nav>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <t t-foreach="products" t-as="product">
+                                <div class="col-md-4 col-lg-3 mb-4">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><t t-esc="product.name"/></h5>
+                                            <p class="card-text">
+                                                <strong>Brand:</strong> <t t-esc="product.brand or 'N/A'"/><br/>
+                                                <strong>Size:</strong> <t t-esc="product.clothing_size.upper() if product.clothing_size else 'N/A'"/><br/>
+                                                <strong>Color:</strong> <t t-esc="product.color or 'N/A'"/><br/>
+                                                <strong>Stock:</strong> <t t-esc="int(product.qty_available)"/> units
+                                            </p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <span class="h5 text-primary">$<t t-esc="product.list_price"/></span>
+                                                <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                        <t t-if="not products">
+                            <div class="alert alert-info text-center">
+                                <h4>No products found</h4>
+                                <p>Try browsing a different category or check back later for new arrivals.</p>
+                            </div>
+                        </t>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

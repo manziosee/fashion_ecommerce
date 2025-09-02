@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_fashion_product_tree" model="ir.ui.view">
+        <field name="name">fashion.product.tree</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="brand"/>
+                <field name="target_audience"/>
+                <field name="clothing_size"/>
+                <field name="color"/>
+                <field name="list_price"/>
+                <field name="qty_available"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_fashion_product_form" model="ir.ui.view">
+        <field name="name">fashion.product.form</field>
+        <field name="model">product.template</field>
+        <field name="arch" type="xml">
+            <form string="Product">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="brand"/>
+                            <field name="target_audience"/>
+                            <field name="list_price"/>
+                        </group>
+                        <group>
+                            <field name="clothing_size"/>
+                            <field name="color"/>
+                            <field name="material"/>
+                            <field name="season"/>
+                        </group>
+                    </group>
+                    <group string="Inventory Management">
+                        <group>
+                            <field name="qty_available"/>
+                            <field name="min_stock_level"/>
+                        </group>
+                        <group>
+                            <field name="virtual_available"/>
+                            <field name="max_stock_level"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_fashion_products" model="ir.actions.act_window">
+        <field name="name">Fashion Products</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</odoo>
