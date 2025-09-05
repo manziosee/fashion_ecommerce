@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Fashion Product Categories -->
+    <record id="category_fashion_root" model="product.category">
+        <field name="name">Fashion</field>
+        <field name="parent_id" ref="product.product_category_all"/>
+    </record>
+
+    <record id="category_mens_clothing" model="product.category">
+        <field name="name">Men's Clothing</field>
+        <field name="parent_id" ref="category_fashion_root"/>
+    </record>
+
+    <record id="category_womens_clothing" model="product.category">
+        <field name="name">Women's Clothing</field>
+        <field name="parent_id" ref="category_fashion_root"/>
+    </record>
+
+    <record id="category_childrens_clothing" model="product.category">
+        <field name="name">Children's Clothing</field>
+        <field name="parent_id" ref="category_fashion_root"/>
+    </record>
+
+    <!-- Subcategories for Men's Clothing -->
+    <record id="category_mens_jackets" model="product.category">
+        <field name="name">Men's Jackets</field>
+        <field name="parent_id" ref="category_mens_clothing"/>
+    </record>
+
+    <record id="category_mens_pants" model="product.category">
+        <field name="name">Men's Pants</field>
+        <field name="parent_id" ref="category_mens_clothing"/>
+    </record>
+
+    <!-- Subcategories for Women's Clothing -->
+    <record id="category_womens_jeans" model="product.category">
+        <field name="name">Women's Jeans</field>
+        <field name="parent_id" ref="category_womens_clothing"/>
+    </record>
+
+    <record id="category_womens_dresses" model="product.category">
+        <field name="name">Women's Dresses</field>
+        <field name="parent_id" ref="category_womens_clothing"/>
+    </record>
+
+    <!-- Subcategories for Children's Clothing -->
+    <record id="category_childrens_tshirts" model="product.category">
+        <field name="name">Children's T-Shirts</field>
+        <field name="parent_id" ref="category_childrens_clothing"/>
+    </record>
+
+    <!-- Hide furniture category from website -->
+    <record id="category_furniture_hidden" model="product.category">
+        <field name="name">Furniture (Hidden)</field>
+        <field name="parent_id" ref="product.product_category_all"/>
+    </record>
+</odoo>

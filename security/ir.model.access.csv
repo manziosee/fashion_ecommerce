@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_fashion_product,access_fashion_product,model_product_template,,1,1,1,1
 access_fashion_sale,access_fashion_sale,model_sale_order,,1,1,1,1
+access_fashion_inventory_report,access_fashion_inventory_report,fashion_ecommerce.model_fashion_inventory_report,,1,0,0,0
+access_stock_quant,access_stock_quant,stock.model_stock_quant,,1,1,1,1

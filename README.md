@@ -33,10 +33,12 @@ Transform your fashion business with this powerful Odoo module designed specific
 - **Multi-location Support** - Warehouse and store management
 
 ### 🌐 **eCommerce Integration**
-- **Custom Homepage** - Professional landing page
-- **Category Filtering** - Shop by target audience with URL parameters
-- **Responsive Design** - Mobile-friendly shopping experience
-- **Product Catalog** - Beautiful product cards with detailed information
+- **Custom Homepage** - Professional landing page with category navigation
+- **Dedicated Category Pages** - Individual pages for Men's, Women's, and Children's collections
+- **Advanced Filtering** - Shop by target audience with URL parameters and dedicated routes
+- **Responsive Design** - Mobile-friendly shopping experience with Bootstrap styling
+- **Product Catalog** - Beautiful product cards with detailed information and stock levels
+- **Shopping Cart Integration** - Real-time cart updates with stock validation
 
 ## 🛠️ Installation
 
@@ -87,15 +89,18 @@ The module includes realistic demo data featuring:
 
 ### 🛒 **Frontend Shopping**
 1. Visit your website homepage (`/`)
-2. Browse products by category (`/shop?target_audience=men`)
+2. Browse dedicated category pages for each collection
 3. Filter by Men, Women, or Children collections
 4. View detailed product information including brand, size, color
+5. Add products to cart with real-time stock validation
 
-### 🎯 **URL Filtering**
-- `/shop` - All products
-- `/shop?target_audience=men` - Men's collection
-- `/shop?target_audience=women` - Women's collection  
-- `/shop?target_audience=children` - Children's collection
+### 🎯 **Category Pages & URL Structure**
+- `/` - Homepage with category navigation
+- `/mens-clothing` - Dedicated Men's fashion page
+- `/womens-clothing` - Dedicated Women's fashion page  
+- `/childrens-clothing` - Dedicated Children's fashion page
+- `/shop` - All products with filtering options
+- `/shop?target_audience=men` - Legacy URL filtering (still supported)
 
 ## 🏗️ **Architecture**
 
