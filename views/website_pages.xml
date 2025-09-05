@@ -2,44 +2,48 @@
     <template id="homepage" name="Fashion Homepage">
         <t t-call="website.layout">
             <div id="wrap">
-                <section class="fashion-hero bg-primary text-white py-5">
-                    <div class="container text-center">
-                        <h1 class="display-4 mb-4">Welcome to FashionEcommerce</h1>
-                        <p class="lead mb-5">Your premier destination for quality clothing from international brands</p>
-                        <p class="mb-4">Serving both B2C and B2B customers across Rwanda</p>
+                <section class="hero-section">
+                    <div class="container">
+                        <h1>FashionEcommerce</h1>
+                        <p class="lead">Quality Fashion for Rwanda - Discover the latest trends in men's, women's, and children's clothing</p>
                         <a href="/shop" class="btn btn-light btn-lg">Shop Now</a>
                     </div>
                 </section>
-                
-                <section class="py-5">
-                    <div class="container">
-                        <h2 class="text-center mb-5">Shop by Category</h2>
-                        <div class="row">
-                            <div class="col-md-4 mb-4">
-                                <div class="card h-100 text-center">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Men's Collection</h5>
-                                        <p class="card-text">Discover our latest men's fashion from top brands like Nike, Levi's, and Adidas</p>
-                                        <a href="/shop?target_audience=men" class="btn btn-primary">Shop Men's</a>
-                                    </div>
+
+                <section class="container my-5">
+                    <div class="section-header">
+                        <h2>Featured Products</h2>
+                        <p>Discover our handpicked selection of premium fashion items</p>
+                    </div>
+                    <div class="section-header">
+                        <h2>Shop by Category</h2>
+                        <p>Browse our collections for men, women, and children</p>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">Men's Collection</h5>
+                                    <p class="card-text">Discover our latest men's fashion from top brands like Nike, Levi's, and Adidas</p>
+                                    <a href="/shop?target_audience=men" class="btn btn-primary">Shop Men's</a>
                                 </div>
                             </div>
-                            <div class="col-md-4 mb-4">
-                                <div class="card h-100 text-center">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Women's Collection</h5>
-                                        <p class="card-text">Elegant and trendy women's clothing from Zara, H&amp;M, and GAP</p>
-                                        <a href="/shop?target_audience=women" class="btn btn-primary">Shop Women's</a>
-                                    </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">Women's Collection</h5>
+                                    <p class="card-text">Elegant and trendy women's clothing from Zara, H&amp;M, and GAP</p>
+                                    <a href="/shop?target_audience=women" class="btn btn-primary">Shop Women's</a>
                                 </div>
                             </div>
-                            <div class="col-md-4 mb-4">
-                                <div class="card h-100 text-center">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Children's Collection</h5>
-                                        <p class="card-text">Fun and comfortable clothing for kids from Disney, Nike, and more</p>
-                                        <a href="/shop?target_audience=children" class="btn btn-primary">Shop Kids'</a>
-                                    </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 text-center">
+                                <div class="card-body">
+                                    <h5 class="card-title">Children's Collection</h5>
+                                    <p class="card-text">Fun and comfortable clothing for kids from Disney, Nike, and more</p>
+                                    <a href="/shop?target_audience=children" class="btn btn-primary">Shop Kids'</a>
                                 </div>
                             </div>
                         </div>
@@ -95,6 +99,17 @@
                             <t t-foreach="products" t-as="product">
                                 <div class="col-md-4 col-lg-3 mb-4">
                                     <div class="card h-100">
+                                        <t t-if="product.image_1920">
+                                            <img t-att-src="'/web/image/product.template/%s/image_1920/300x300' % product.id" 
+                                                 class="card-img-top" style="height: 250px; object-fit: cover;" 
+                                                 t-att-alt="product.name"/>
+                                        </t>
+                                        <t t-else="">
+                                            <div class="card-img-top bg-light d-flex align-items-center justify-content-center" 
+                                                 style="height: 250px;">
+                                                <i class="fa fa-image fa-3x text-muted"></i>
+                                            </div>
+                                        </t>
                                         <div class="card-body">
                                             <h5 class="card-title"><t t-esc="product.name"/></h5>
                                             <p class="card-text">
@@ -105,7 +120,14 @@
                                             </p>
                                             <div class="d-flex justify-content-between align-items-center">
                                                 <span class="h5 text-primary">$<t t-esc="product.list_price"/></span>
-                                                <a href="#" class="btn btn-primary btn-sm">Add to Cart</a>
+                                                <form action="/shop/cart/update" method="post" class="js_add_cart_variants">
+                                                    <input type="hidden" name="product_id" t-att-value="product.product_variant_id.id"/>
+                                                    <input type="hidden" name="add_qty" value="1"/>
+                                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                    <button type="submit" class="btn btn-primary btn-sm a-submit">
+                                                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>

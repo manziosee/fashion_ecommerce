@@ -1,4 +1,36 @@
 <odoo>
-    <!-- Website templates for fashion ecommerce -->
-    <!-- CSS assets are loaded via manifest.py assets section -->
+    <!-- Add shopping cart to website header -->
+    <template id="fashion_cart_header" inherit_id="website.layout" name="Fashion Cart Header">
+        <!-- Add cart icon to header -->
+        <xpath expr="//header//ul[hasclass('navbar-nav')]" position="inside">
+            <li class="nav-item">
+                <a href="/shop/cart" class="nav-link position-relative">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="badge bg-primary position-absolute top-0 start-100 translate-middle rounded-pill" 
+                          t-if="website_sale_current_pl and website_sale_current_pl.cart_quantity > 0"
+                          t-esc="website_sale_current_pl.cart_quantity"/>
+                    <span class="d-none d-md-inline ms-1">Cart</span>
+                </a>
+            </li>
+        </xpath>
+    </template>
+
+    <!-- Custom website title -->
+    <template id="fashion_website_title" inherit_id="website.layout" name="Fashion Website Title">
+        <xpath expr="//title" position="replace">
+            <title>
+                <t t-if="main_object and main_object.name">
+                    <t t-esc="main_object.name"/> | 
+                </t>
+                FashionEcommerce - Quality Fashion for Rwanda
+            </title>
+        </xpath>
+    </template>
+
+    <!-- Hide Odoo branding in footer -->
+    <template id="fashion_footer_branding" inherit_id="website.footer_custom" name="Fashion Footer Branding" active="False">
+        <xpath expr="//div[contains(@class, 'o_footer_copyright')]//span" position="replace">
+            <span>© 2025 FashionEcommerce - Quality Fashion for Rwanda</span>
+        </xpath>
+    </template>
 </odoo>

@@ -50,6 +50,9 @@
         <field name="categ_id" ref="product.product_category_all"/>
         <field name="min_stock_level">15.0</field>
         <field name="max_stock_level">100.0</field>
+        <field name="website_published">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">True</field>
     </record>
 
     <record id="product_mens_jeans_levis" model="product.template">
@@ -64,8 +67,11 @@
         <field name="standard_price">50.00</field>
         <field name="type">product</field>
         <field name="categ_id" ref="product.product_category_all"/>
-        <field name="min_stock_level">10.0</field>
+        <field name="min_stock_level">12.0</field>
         <field name="max_stock_level">80.0</field>
+        <field name="website_published">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">True</field>
     </record>
 
     <record id="product_mens_jacket_adidas" model="product.template">
@@ -82,6 +88,9 @@
         <field name="categ_id" ref="product.product_category_all"/>
         <field name="min_stock_level">8.0</field>
         <field name="max_stock_level">50.0</field>
+        <field name="website_published">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">True</field>
     </record>
 
     <!-- Women's Clothing -->
@@ -97,6 +106,9 @@
         <field name="standard_price">35.00</field>
         <field name="type">product</field>
         <field name="categ_id" ref="product.product_category_all"/>
+        <field name="website_published">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">True</field>
         <field name="min_stock_level">12.0</field>
         <field name="max_stock_level">75.0</field>
     </record>
@@ -115,6 +127,9 @@
         <field name="categ_id" ref="product.product_category_all"/>
         <field name="min_stock_level">20.0</field>
         <field name="max_stock_level">90.0</field>
+        <field name="website_published">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">True</field>
     </record>
 
     <record id="product_womens_jeans_gap" model="product.template">
@@ -131,6 +146,9 @@
         <field name="categ_id" ref="product.product_category_all"/>
         <field name="min_stock_level">15.0</field>
         <field name="max_stock_level">85.0</field>
+        <field name="website_published">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">True</field>
     </record>
 
     <!-- Children's Clothing -->
@@ -148,6 +166,9 @@
         <field name="categ_id" ref="product.product_category_all"/>
         <field name="min_stock_level">25.0</field>
         <field name="max_stock_level">120.0</field>
+        <field name="website_published">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">True</field>
     </record>
 
     <record id="product_kids_shorts_nike" model="product.template">
@@ -164,6 +185,9 @@
         <field name="categ_id" ref="product.product_category_all"/>
         <field name="min_stock_level">20.0</field>
         <field name="max_stock_level">100.0</field>
+        <field name="website_published">True</field>
+        <field name="sale_ok">True</field>
+        <field name="purchase_ok">True</field>
     </record>
 
     <!-- Demo data will be added after module installation -->

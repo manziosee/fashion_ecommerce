@@ -29,22 +29,45 @@
                             <field name="target_audience"/>
                             <field name="list_price"/>
                         </group>
-                        <group>
+                        <group string="Fashion Details">
+                            <field name="target_audience"/>
+                            <field name="brand"/>
+                            <field name="season"/>
                             <field name="clothing_size"/>
                             <field name="color"/>
                             <field name="material"/>
-                            <field name="season"/>
                         </group>
-                    </group>
-                    <group string="Inventory Management">
-                        <group>
-                            <field name="qty_available"/>
+                        <group string="Inventory Management">
                             <field name="min_stock_level"/>
-                        </group>
-                        <group>
-                            <field name="virtual_available"/>
                             <field name="max_stock_level"/>
                         </group>
+                    </group>
+                    <notebook>
+                        <page string="Product Images">
+                            <group>
+                                <field name="image_1920" widget="image" class="oe_avatar"/>
+                                <field name="image_1024" widget="image" readonly="1"/>
+                                <field name="image_512" widget="image" readonly="1"/>
+                                <field name="image_256" widget="image" readonly="1"/>
+                                <field name="image_128" widget="image" readonly="1"/>
+                            </group>
+                            <group string="Additional Images">
+                                <p>You can add multiple product images by creating product variants or using the website product gallery.</p>
+                            </group>
+                        </page>
+                        <page string="Website">
+                            <group>
+                                <field name="website_published"/>
+                                <field name="website_url" readonly="1"/>
+                                <field name="website_meta_title"/>
+                                <field name="website_meta_description"/>
+                                <field name="website_meta_keywords"/>
+                            </group>
+                        </page>
+                    </notebook>
+                    <group>
+                        <field name="virtual_available"/>
+                        <field name="max_stock_level"/>
                     </group>
                 </sheet>
             </form>
