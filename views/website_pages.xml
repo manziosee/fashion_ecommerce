@@ -25,7 +25,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Men's Collection</h5>
                                     <p class="card-text">Discover our latest men's fashion from top brands like Nike, Levi's, and Adidas</p>
-                                    <a href="/shop?target_audience=men" class="btn btn-primary">Shop Men's</a>
+                                    <a href="/mens-clothing" class="btn btn-primary">Shop Men's</a>
                                 </div>
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Women's Collection</h5>
                                     <p class="card-text">Elegant and trendy women's clothing from Zara, H&amp;M, and GAP</p>
-                                    <a href="/shop?target_audience=women" class="btn btn-primary">Shop Women's</a>
+                                    <a href="/womens-clothing" class="btn btn-primary">Shop Women's</a>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                                 <div class="card-body">
                                     <h5 class="card-title">Children's Collection</h5>
                                     <p class="card-text">Fun and comfortable clothing for kids from Disney, Nike, and more</p>
-                                    <a href="/shop?target_audience=children" class="btn btn-primary">Shop Kids'</a>
+                                    <a href="/childrens-clothing" class="btn btn-primary">Shop Kids'</a>
                                 </div>
                             </div>
                         </div>
@@ -141,6 +141,258 @@
                             </div>
                         </t>
                     </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Men's Clothing Category Page -->
+    <template id="mens_clothing_page" name="Men's Clothing Page">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <section class="category-hero bg-primary text-white py-5">
+                    <div class="container text-center">
+                        <h1 t-esc="category_title"/>
+                        <p class="lead" t-esc="category_description"/>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center bg-transparent">
+                                <li class="breadcrumb-item"><a href="/" class="text-white">Home</a></li>
+                                <li class="breadcrumb-item active text-white" t-esc="category_title"/>
+                            </ol>
+                        </nav>
+                    </div>
+                </section>
+
+                <section class="container my-5">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3>Men's Fashion Collection</h3>
+                                <span class="badge bg-info fs-6"><t t-esc="len(products)"/> Products Available</span>
+                            </div>
+                            <hr/>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <t t-foreach="products" t-as="product">
+                            <div class="col-md-4 col-lg-3 mb-4">
+                                <div class="card h-100 shadow-sm">
+                                    <t t-if="product.image_1920">
+                                        <img t-att-src="'/web/image/product.template/%s/image_1920/300x300' % product.id" 
+                                             class="card-img-top" style="height: 250px; object-fit: cover;" 
+                                             t-att-alt="product.name"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" 
+                                             style="height: 250px;">
+                                            <i class="fa fa-image fa-3x text-muted"></i>
+                                        </div>
+                                    </t>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title" t-esc="product.name"/>
+                                        <div class="product-details mb-3">
+                                            <small class="text-muted">
+                                                <strong>Brand:</strong> <t t-esc="product.brand or 'N/A'"/><br/>
+                                                <strong>Size:</strong> <t t-esc="product.clothing_size.upper() if product.clothing_size else 'N/A'"/><br/>
+                                                <strong>Color:</strong> <t t-esc="product.color or 'N/A'"/>
+                                            </small>
+                                        </div>
+                                        <div class="mt-auto">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <span class="h5 text-primary mb-0">$<t t-esc="product.list_price"/></span>
+                                                <small class="text-success"><t t-esc="int(product.qty_available)"/> in stock</small>
+                                            </div>
+                                            <form action="/shop/cart/update" method="post" class="js_add_cart_variants">
+                                                <input type="hidden" name="product_id" t-att-value="product.product_variant_id.id"/>
+                                                <input type="hidden" name="add_qty" value="1"/>
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <button type="submit" class="btn btn-primary w-100">
+                                                    <i class="fa fa-shopping-cart"></i> Add to Cart
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                    
+                    <t t-if="not products">
+                        <div class="alert alert-info text-center">
+                            <h4>No Men's Products Available</h4>
+                            <p>Check back soon for new arrivals in our men's collection!</p>
+                            <a href="/" class="btn btn-primary">Return to Homepage</a>
+                        </div>
+                    </t>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Women's Clothing Category Page -->
+    <template id="womens_clothing_page" name="Women's Clothing Page">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <section class="category-hero bg-danger text-white py-5">
+                    <div class="container text-center">
+                        <h1 t-esc="category_title"/>
+                        <p class="lead" t-esc="category_description"/>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center bg-transparent">
+                                <li class="breadcrumb-item"><a href="/" class="text-white">Home</a></li>
+                                <li class="breadcrumb-item active text-white" t-esc="category_title"/>
+                            </ol>
+                        </nav>
+                    </div>
+                </section>
+
+                <section class="container my-5">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3>Women's Fashion Collection</h3>
+                                <span class="badge bg-info fs-6"><t t-esc="len(products)"/> Products Available</span>
+                            </div>
+                            <hr/>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <t t-foreach="products" t-as="product">
+                            <div class="col-md-4 col-lg-3 mb-4">
+                                <div class="card h-100 shadow-sm">
+                                    <t t-if="product.image_1920">
+                                        <img t-att-src="'/web/image/product.template/%s/image_1920/300x300' % product.id" 
+                                             class="card-img-top" style="height: 250px; object-fit: cover;" 
+                                             t-att-alt="product.name"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" 
+                                             style="height: 250px;">
+                                            <i class="fa fa-image fa-3x text-muted"></i>
+                                        </div>
+                                    </t>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title" t-esc="product.name"/>
+                                        <div class="product-details mb-3">
+                                            <small class="text-muted">
+                                                <strong>Brand:</strong> <t t-esc="product.brand or 'N/A'"/><br/>
+                                                <strong>Size:</strong> <t t-esc="product.clothing_size.upper() if product.clothing_size else 'N/A'"/><br/>
+                                                <strong>Color:</strong> <t t-esc="product.color or 'N/A'"/>
+                                            </small>
+                                        </div>
+                                        <div class="mt-auto">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <span class="h5 text-primary mb-0">$<t t-esc="product.list_price"/></span>
+                                                <small class="text-success"><t t-esc="int(product.qty_available)"/> in stock</small>
+                                            </div>
+                                            <form action="/shop/cart/update" method="post" class="js_add_cart_variants">
+                                                <input type="hidden" name="product_id" t-att-value="product.product_variant_id.id"/>
+                                                <input type="hidden" name="add_qty" value="1"/>
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <button type="submit" class="btn btn-primary w-100">
+                                                    <i class="fa fa-shopping-cart"></i> Add to Cart
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                    
+                    <t t-if="not products">
+                        <div class="alert alert-info text-center">
+                            <h4>No Women's Products Available</h4>
+                            <p>Check back soon for new arrivals in our women's collection!</p>
+                            <a href="/" class="btn btn-primary">Return to Homepage</a>
+                        </div>
+                    </t>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Children's Clothing Category Page -->
+    <template id="childrens_clothing_page" name="Children's Clothing Page">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <section class="category-hero bg-success text-white py-5">
+                    <div class="container text-center">
+                        <h1 t-esc="category_title"/>
+                        <p class="lead" t-esc="category_description"/>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb justify-content-center bg-transparent">
+                                <li class="breadcrumb-item"><a href="/" class="text-white">Home</a></li>
+                                <li class="breadcrumb-item active text-white" t-esc="category_title"/>
+                            </ol>
+                        </nav>
+                    </div>
+                </section>
+
+                <section class="container my-5">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h3>Children's Fashion Collection</h3>
+                                <span class="badge bg-info fs-6"><t t-esc="len(products)"/> Products Available</span>
+                            </div>
+                            <hr/>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <t t-foreach="products" t-as="product">
+                            <div class="col-md-4 col-lg-3 mb-4">
+                                <div class="card h-100 shadow-sm">
+                                    <t t-if="product.image_1920">
+                                        <img t-att-src="'/web/image/product.template/%s/image_1920/300x300' % product.id" 
+                                             class="card-img-top" style="height: 250px; object-fit: cover;" 
+                                             t-att-alt="product.name"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="card-img-top bg-light d-flex align-items-center justify-content-center" 
+                                             style="height: 250px;">
+                                            <i class="fa fa-image fa-3x text-muted"></i>
+                                        </div>
+                                    </t>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title" t-esc="product.name"/>
+                                        <div class="product-details mb-3">
+                                            <small class="text-muted">
+                                                <strong>Brand:</strong> <t t-esc="product.brand or 'N/A'"/><br/>
+                                                <strong>Size:</strong> <t t-esc="product.clothing_size.upper() if product.clothing_size else 'N/A'"/><br/>
+                                                <strong>Color:</strong> <t t-esc="product.color or 'N/A'"/>
+                                            </small>
+                                        </div>
+                                        <div class="mt-auto">
+                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                <span class="h5 text-primary mb-0">$<t t-esc="product.list_price"/></span>
+                                                <small class="text-success"><t t-esc="int(product.qty_available)"/> in stock</small>
+                                            </div>
+                                            <form action="/shop/cart/update" method="post" class="js_add_cart_variants">
+                                                <input type="hidden" name="product_id" t-att-value="product.product_variant_id.id"/>
+                                                <input type="hidden" name="add_qty" value="1"/>
+                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                <button type="submit" class="btn btn-primary w-100">
+                                                    <i class="fa fa-shopping-cart"></i> Add to Cart
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </div>
+                    
+                    <t t-if="not products">
+                        <div class="alert alert-info text-center">
+                            <h4>No Children's Products Available</h4>
+                            <p>Check back soon for new arrivals in our children's collection!</p>
+                            <a href="/" class="btn btn-primary">Return to Homepage</a>
+                        </div>
+                    </t>
                 </section>
             </div>
         </t>

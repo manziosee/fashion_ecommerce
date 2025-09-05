@@ -66,7 +66,7 @@
         <field name="list_price">85.00</field>
         <field name="standard_price">50.00</field>
         <field name="type">product</field>
-        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="categ_id" ref="category_mens_pants"/>
         <field name="min_stock_level">12.0</field>
         <field name="max_stock_level">80.0</field>
         <field name="website_published">True</field>
@@ -85,12 +85,14 @@
         <field name="list_price">120.00</field>
         <field name="standard_price">70.00</field>
         <field name="type">product</field>
-        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="categ_id" ref="category_mens_jackets"/>
         <field name="min_stock_level">8.0</field>
         <field name="max_stock_level">50.0</field>
         <field name="website_published">True</field>
         <field name="sale_ok">True</field>
         <field name="purchase_ok">True</field>
+        <field name="b2b_price">38.00</field>
+        <field name="b2b_min_qty">5.0</field>
     </record>
 
     <!-- Women's Clothing -->
@@ -105,7 +107,7 @@
         <field name="list_price">65.00</field>
         <field name="standard_price">35.00</field>
         <field name="type">product</field>
-        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="categ_id" ref="category_womens_dresses"/>
         <field name="website_published">True</field>
         <field name="sale_ok">True</field>
         <field name="purchase_ok">True</field>
@@ -124,7 +126,7 @@
         <field name="list_price">55.00</field>
         <field name="standard_price">30.00</field>
         <field name="type">product</field>
-        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="categ_id" ref="category_womens_clothing"/>
         <field name="min_stock_level">20.0</field>
         <field name="max_stock_level">90.0</field>
         <field name="website_published">True</field>
@@ -143,7 +145,7 @@
         <field name="list_price">75.00</field>
         <field name="standard_price">45.00</field>
         <field name="type">product</field>
-        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="categ_id" ref="category_womens_jeans"/>
         <field name="min_stock_level">15.0</field>
         <field name="max_stock_level">85.0</field>
         <field name="website_published">True</field>
@@ -163,7 +165,7 @@
         <field name="list_price">25.00</field>
         <field name="standard_price">12.00</field>
         <field name="type">product</field>
-        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="categ_id" ref="category_childrens_tshirts"/>
         <field name="min_stock_level">25.0</field>
         <field name="max_stock_level">120.0</field>
         <field name="website_published">True</field>
@@ -182,7 +184,7 @@
         <field name="list_price">30.00</field>
         <field name="standard_price">18.00</field>
         <field name="type">product</field>
-        <field name="categ_id" ref="product.product_category_all"/>
+        <field name="categ_id" ref="category_childrens_clothing"/>
         <field name="min_stock_level">20.0</field>
         <field name="max_stock_level">100.0</field>
         <field name="website_published">True</field>

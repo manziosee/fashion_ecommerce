@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Website Configuration for Fashion Categories -->
+    <record id="website_menu_fashion" model="website.menu">
+        <field name="name">Fashion</field>
+        <field name="url">/shop/category/fashion</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="website_menu_mens" model="website.menu">
+        <field name="name">Men's Clothing</field>
+        <field name="url">/mens-clothing</field>
+        <field name="parent_id" ref="website_menu_fashion"/>
+        <field name="sequence">1</field>
+    </record>
+
+    <record id="website_menu_womens" model="website.menu">
+        <field name="name">Women's Clothing</field>
+        <field name="url">/womens-clothing</field>
+        <field name="parent_id" ref="website_menu_fashion"/>
+        <field name="sequence">2</field>
+    </record>
+
+    <record id="website_menu_childrens" model="website.menu">
+        <field name="name">Children's Clothing</field>
+        <field name="url">/childrens-clothing</field>
+        <field name="parent_id" ref="website_menu_fashion"/>
+        <field name="sequence">3</field>
+    </record>
+
+    <!-- Note: Product categories don't have website_published field in Odoo 17 -->
+    <!-- Website visibility is controlled through website.menu and product visibility -->
+</odoo>

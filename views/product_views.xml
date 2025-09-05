@@ -40,6 +40,16 @@
                         <group string="Inventory Management">
                             <field name="min_stock_level"/>
                             <field name="max_stock_level"/>
+                            <field name="stock_status" readonly="1"/>
+                            <button name="action_replenish_stock" string="Replenish Stock" 
+                                    type="object" class="btn-primary"
+                                    invisible="stock_status != 'low_stock'"/>
+                        </group>
+                    </group>
+                    <group string="B2B Pricing">
+                        <group>
+                            <field name="b2b_price"/>
+                            <field name="b2b_min_qty"/>
                         </group>
                     </group>
                     <notebook>

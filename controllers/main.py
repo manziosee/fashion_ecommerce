@@ -15,6 +15,48 @@ class FashionWebsite(http.Controller):
         products = request.env['product.template'].search(domain, limit=8)
         return request.render("fashion_ecommerce.homepage", {'products': products})
 
+    @http.route('/mens-clothing', type='http', auth="public", website=True)
+    def mens_clothing(self, **kw):
+        domain = [
+            ('website_published', '=', True), 
+            ('sale_ok', '=', True),
+            ('target_audience', '=', 'men')
+        ]
+        products = request.env['product.template'].search(domain)
+        return request.render("fashion_ecommerce.mens_clothing_page", {
+            'products': products,
+            'category_title': "Men's Clothing",
+            'category_description': "Discover our premium collection of men's fashion from top brands like Nike, Levi's, and Adidas."
+        })
+
+    @http.route('/womens-clothing', type='http', auth="public", website=True)
+    def womens_clothing(self, **kw):
+        domain = [
+            ('website_published', '=', True), 
+            ('sale_ok', '=', True),
+            ('target_audience', '=', 'women')
+        ]
+        products = request.env['product.template'].search(domain)
+        return request.render("fashion_ecommerce.womens_clothing_page", {
+            'products': products,
+            'category_title': "Women's Clothing",
+            'category_description': "Elegant and trendy women's clothing from Zara, H&M, GAP, and other premium brands."
+        })
+
+    @http.route('/childrens-clothing', type='http', auth="public", website=True)
+    def childrens_clothing(self, **kw):
+        domain = [
+            ('website_published', '=', True), 
+            ('sale_ok', '=', True),
+            ('target_audience', '=', 'children')
+        ]
+        products = request.env['product.template'].search(domain)
+        return request.render("fashion_ecommerce.childrens_clothing_page", {
+            'products': products,
+            'category_title': "Children's Clothing",
+            'category_description': "Fun and comfortable clothing for kids from Disney, Nike, and other trusted brands."
+        })
+
     @http.route('/shop', type='http', auth="public", website=True)
     def shop(self, target_audience=None, **kw):
         # Base domain for fashion products only

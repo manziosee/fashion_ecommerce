@@ -1,4 +1,5 @@
-from odoo import models, fields
+from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
@@ -9,7 +10,6 @@ class ProductTemplate(models.Model):
         ('children', 'Children')
     ], string="Target Audience")
     
-    # Fashion-specific fields
     brand = fields.Char(string="Brand")
     season = fields.Selection([
         ('spring', 'Spring'),
@@ -32,6 +32,46 @@ class ProductTemplate(models.Model):
     color = fields.Char(string="Color")
     material = fields.Char(string="Material")
     
-    # Enhanced for inventory management
+    # Inventory Management
     min_stock_level = fields.Float(string="Minimum Stock Level", default=10.0)
     max_stock_level = fields.Float(string="Maximum Stock Level", default=100.0)
+    stock_status = fields.Selection([
+        ('in_stock', 'In Stock'),
+        ('low_stock', 'Low Stock'),
+        ('out_of_stock', 'Out of Stock')
+    ], string="Stock Status", compute="_compute_stock_status", store=True)
+    
+    # B2B Pricing
+    b2b_price = fields.Float(string="B2B Price", help="Special price for B2B customers")
+    b2b_min_qty = fields.Float(string="B2B Minimum Quantity", default=1.0)
+    
+    @api.depends('qty_available', 'min_stock_level')
+    def _compute_stock_status(self):
+        for product in self:
+            if product.qty_available <= 0:
+                product.stock_status = 'out_of_stock'
+            elif product.qty_available <= product.min_stock_level:
+                product.stock_status = 'low_stock'
+            else:
+                product.stock_status = 'in_stock'
+    
+    def action_replenish_stock(self):
+        """Action to create purchase order for stock replenishment"""
+        if self.qty_available > self.min_stock_level:
+            raise UserError("Stock level is sufficient. No replenishment needed.")
+        
+        # Create procurement for replenishment
+        qty_to_order = self.max_stock_level - self.qty_available
+        
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Replenish Stock',
+            'res_model': 'stock.warehouse.orderpoint',
+            'view_mode': 'form',
+            'context': {
+                'default_product_id': self.product_variant_id.id,
+                'default_product_min_qty': self.min_stock_level,
+                'default_product_max_qty': self.max_stock_level,
+            },
+            'target': 'new',
+        }

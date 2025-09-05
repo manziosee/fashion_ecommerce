@@ -20,13 +20,14 @@
     # XML/CSV data files
     'data': [
         'security/ir.model.access.csv',
+        'data/product_categories.xml',
+        'data/demo_data.xml',
+        'data/website_configuration.xml',
         'views/product_views.xml',
         'views/sale_order_views.xml',
-        'views/menus.xml',
-        'views/website_pages.xml',
+        'views/ecommerce_templates.xml',
         'views/website_templates.xml',
-        'views/website_assets.xml',
-        'data/demo_data.xml',
+        'views/website_pages.xml',
     ],
 
     # Frontend assets (CSS/JS)
