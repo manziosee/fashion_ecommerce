@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Product Review Tree View -->
+    <record id="view_fashion_product_review_tree" model="ir.ui.view">
+        <field name="name">fashion.product.review.tree</field>
+        <field name="model">fashion.product.review</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="state=='published'" decoration-muted="state=='rejected'">
+                <field name="title"/>
+                <field name="product_id"/>
+                <field name="partner_id"/>
+                <field name="rating"/>
+                <field name="verified_purchase"/>
+                <field name="state"/>
+                <field name="date_review"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Product Review Form View -->
+    <record id="view_fashion_product_review_form" model="ir.ui.view">
+        <field name="name">fashion.product.review.form</field>
+        <field name="model">fashion.product.review</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="action_publish" string="Publish" type="object" 
+                            class="btn-primary" invisible="state == 'published'"/>
+                    <button name="action_reject" string="Reject" type="object" 
+                            class="btn-secondary" invisible="state == 'rejected'"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="title"/>
+                            <field name="product_id"/>
+                            <field name="partner_id"/>
+                            <field name="rating"/>
+                        </group>
+                        <group>
+                            <field name="date_review"/>
+                            <field name="verified_purchase"/>
+                            <field name="helpful_count"/>
+                        </group>
+                    </group>
+                    <group string="Review Content">
+                        <field name="review_text" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Product Review Action -->
+    <record id="action_fashion_product_review" model="ir.actions.act_window">
+        <field name="name">Product Reviews</field>
+        <field name="res_model">fashion.product.review</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No product reviews found!
+            </p>
+            <p>
+                Customers can leave reviews for products they have purchased.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_fashion_product_review"
+              name="Product Reviews"
+              parent="sale.sale_menu_root"
+              action="action_fashion_product_review"
+              sequence="16"/>
+
+    <!-- Add reviews to product form -->
+    <record id="view_product_template_form_reviews" model="ir.ui.view">
+        <field name="name">product.template.form.reviews</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Reviews" name="reviews">
+                    <field name="fashion_review_ids" readonly="1">
+                        <tree>
+                            <field name="title"/>
+                            <field name="partner_id"/>
+                            <field name="rating"/>
+                            <field name="state"/>
+                            <field name="date_review"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

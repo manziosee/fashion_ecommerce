@@ -45,6 +45,11 @@ class ProductTemplate(models.Model):
     b2b_price = fields.Float(string="B2B Price", help="Special price for B2B customers")
     b2b_min_qty = fields.Float(string="B2B Minimum Quantity", default=1.0)
     
+    # Reviews
+    fashion_review_ids = fields.One2many('fashion.product.review', 'product_id', string='Reviews')
+    review_count = fields.Integer(string='Review Count', compute='_compute_review_stats', store=True)
+    average_rating = fields.Float(string='Average Rating', compute='_compute_review_stats', store=True)
+    
     @api.depends('qty_available', 'min_stock_level')
     def _compute_stock_status(self):
         for product in self:
@@ -55,13 +60,34 @@ class ProductTemplate(models.Model):
             else:
                 product.stock_status = 'in_stock'
     
+    @api.depends('fashion_review_ids.state', 'fashion_review_ids.rating')
+    def _compute_review_stats(self):
+        for product in self:
+            published_reviews = product.fashion_review_ids.filtered(lambda r: r.state == 'published')
+            product.review_count = len(published_reviews)
+            if published_reviews:
+                total_rating = sum(int(review.rating) for review in published_reviews)
+                product.average_rating = round(total_rating / len(published_reviews), 1)
+            else:
+                product.average_rating = 0.0
+    
     def action_replenish_stock(self):
         """Action to create purchase order for stock replenishment"""
         if self.qty_available > self.min_stock_level:
             raise UserError("Stock level is sufficient. No replenishment needed.")
         
+        # Validate max stock level
+        if self.max_stock_level <= self.qty_available:
+            raise UserError("Maximum stock level must be greater than current stock.")
+        
+        if self.max_stock_level <= self.min_stock_level:
+            raise UserError("Maximum stock level must be greater than minimum stock level.")
+        
         # Create procurement for replenishment
-        qty_to_order = self.max_stock_level - self.qty_available
+        qty_to_order = max(0, self.max_stock_level - self.qty_available)
+        
+        if qty_to_order <= 0:
+            raise UserError("No quantity to order calculated.")
         
         return {
             'type': 'ir.actions.act_window',
@@ -72,6 +98,7 @@ class ProductTemplate(models.Model):
                 'default_product_id': self.product_variant_id.id,
                 'default_product_min_qty': self.min_stock_level,
                 'default_product_max_qty': self.max_stock_level,
+                'default_qty_to_order': qty_to_order,
             },
             'target': 'new',
         }

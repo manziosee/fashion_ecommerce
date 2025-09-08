@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Wishlist Tree View -->
+    <record id="view_fashion_wishlist_tree" model="ir.ui.view">
+        <field name="name">fashion.wishlist.tree</field>
+        <field name="model">fashion.wishlist</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="product_name"/>
+                <field name="product_brand"/>
+                <field name="product_price"/>
+                <field name="date_added"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Wishlist Form View -->
+    <record id="view_fashion_wishlist_form" model="ir.ui.view">
+        <field name="name">fashion.wishlist.form</field>
+        <field name="model">fashion.wishlist</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="partner_id"/>
+                        <field name="product_id"/>
+                        <field name="date_added"/>
+                    </group>
+                    <group string="Product Details">
+                        <field name="product_name"/>
+                        <field name="product_brand"/>
+                        <field name="product_price"/>
+                        <field name="product_image" widget="image" class="oe_avatar"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Wishlist Action -->
+    <record id="action_fashion_wishlist" model="ir.actions.act_window">
+        <field name="name">Customer Wishlists</field>
+        <field name="res_model">fashion.wishlist</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No wishlist items found!
+            </p>
+            <p>
+                Customers can add products to their wishlist from the website.
+            </p>
+        </field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem id="menu_fashion_wishlist"
+              name="Wishlists"
+              parent="sale.sale_menu_root"
+              action="action_fashion_wishlist"
+              sequence="15"/>
+</odoo>
