@@ -1,256 +1,182 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <!-- Enhanced Checkout Page -->
-    <template id="checkout_page" name="Fashion Checkout">
+    <!-- Search Results Page -->
+    <template id="search_results" name="Search Results">
         <t t-call="website.layout">
-            <div id="wrap" class="oe_structure oe_empty">
-                <div class="container mt-4">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <h2>Checkout</h2>
-                            <form action="/shop/confirm_order" method="post" class="checkout-form">
-                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
-                                
-                                <!-- Customer Type Selection -->
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <h5>Customer Type</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="customer_type" value="b2c" id="b2c" checked="checked"/>
-                                            <label class="form-check-label" for="b2c">
-                                                Individual Customer (B2C)
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="customer_type" value="b2b" id="b2b"/>
-                                            <label class="form-check-label" for="b2b">
-                                                Business Customer (B2B) - Special pricing available
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <!-- Delivery Options -->
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <h5>Delivery Method</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <t t-foreach="delivery_methods" t-as="method">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="delivery_method" 
-                                                       t-att-value="method[0]" t-att-id="method[0]" 
-                                                       t-att-checked="'checked' if method[0] == 'standard' else None"/>
-                                                <label class="form-check-label" t-att-for="method[0]">
-                                                    <t t-esc="method[1]"/>
-                                                </label>
-                                            </div>
-                                        </t>
-                                    </div>
-                                </div>
-                                
-                                <button type="submit" class="btn btn-primary btn-lg">
-                                    Confirm Order - $<t t-esc="order.amount_total"/>
-                                </button>
-                            </form>
-                        </div>
-                        
-                        <!-- Order Summary -->
-                        <div class="col-lg-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Order Summary</h5>
-                                </div>
-                                <div class="card-body">
-                                    <t t-foreach="order.order_line" t-as="line">
-                                        <div class="d-flex justify-content-between mb-2">
-                                            <span><t t-esc="line.product_id.name"/> x <t t-esc="int(line.product_uom_qty)"/></span>
-                                            <span>$<t t-esc="line.price_subtotal"/></span>
-                                        </div>
-                                    </t>
-                                    <hr/>
-                                    <div class="d-flex justify-content-between">
-                                        <strong>Total: $<t t-esc="order.amount_total"/></strong>
-                                    </div>
-                                </div>
-                            </div>
+            <div id="wrap">
+                <section class="container my-5">
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <h2>Search Results</h2>
+                            <t t-if="search_term">
+                                <p class="text-muted">Showing results for "<strong t-esc="search_term"/>"</p>
+                            </t>
+                            <p class="text-info"><t t-esc="total_products"/> products found</p>
                         </div>
                     </div>
-                </div>
-            </div>
-        </t>
-    </template>
-    
-    <!-- Order Confirmation -->
-    <template id="order_confirmation" name="Order Confirmation">
-        <t t-call="website.layout">
-            <div id="wrap" class="oe_structure oe_empty">
-                <div class="container mt-4 text-center">
-                    <div class="alert alert-success">
-                        <h2><i class="fa fa-check-circle"></i> Order Confirmed!</h2>
-                        <p>Thank you for your order. Your order number is: <strong t-esc="order.name"/></p>
-                        <t t-if="order.tracking_number">
-                            <p>Tracking Number: <strong t-esc="order.tracking_number"/></p>
-                        </t>
-                    </div>
-                    
-                    <div class="row mt-4">
-                        <div class="col-md-6 offset-md-3">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Order Details</h5>
-                                </div>
-                                <div class="card-body">
-                                    <p><strong>Customer Type:</strong> <t t-esc="order.customer_type.upper()"/></p>
-                                    <p><strong>Delivery Method:</strong> <t t-esc="order.delivery_method.replace('_', ' ').title()"/></p>
-                                    <p><strong>Total Amount:</strong> $<t t-esc="order.amount_total"/></p>
-                                    <t t-if="order.customer_type == 'b2c'">
-                                        <p class="text-success">Invoice has been automatically generated and sent to your email.</p>
-                                    </t>
-                                    <t t-if="order.customer_type == 'b2b'">
-                                        <p class="text-info">Invoice will be sent according to your payment terms.</p>
-                                    </t>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-4">
-                        <a href="/shop" class="btn btn-primary">Continue Shopping</a>
-                        <t t-if="order.tracking_number">
-                            <a t-att-href="'/shop/track/' + order.tracking_number" class="btn btn-info">Track Order</a>
-                        </t>
-                    </div>
-                </div>
-            </div>
-        </t>
-    </template>
-    
-    <!-- B2B Portal -->
-    <template id="b2b_portal" name="B2B Customer Portal">
-        <t t-call="website.layout">
-            <div id="wrap" class="oe_structure oe_empty">
-                <div class="container mt-4">
-                    <h2>B2B Customer Portal</h2>
-                    <p>Welcome, <t t-esc="partner.name"/>!</p>
                     
                     <div class="row">
-                        <!-- Recent Orders -->
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Recent Orders</h5>
+                        <!-- Filter Sidebar -->
+                        <div class="col-md-3">
+                            <div class="filter-sidebar">
+                                <h5>Filters</h5>
+                                
+                                <!-- Category Filter -->
+                                <div class="filter-group">
+                                    <h6>Category</h6>
+                                    <a href="/shop/search" class="filter-option" t-att-class="'active' if not category else ''">All Categories</a>
+                                    <a href="/shop/search?category=men" class="filter-option" t-att-class="'active' if category == 'men' else ''">Men's Clothing</a>
+                                    <a href="/shop/search?category=women" class="filter-option" t-att-class="'active' if category == 'women' else ''">Women's Clothing</a>
+                                    <a href="/shop/search?category=children" class="filter-option" t-att-class="'active' if category == 'children' else ''">Children's Clothing</a>
                                 </div>
-                                <div class="card-body">
-                                    <t t-if="orders">
-                                        <t t-foreach="orders" t-as="order">
-                                            <div class="border-bottom pb-2 mb-2">
-                                                <div class="d-flex justify-content-between">
-                                                    <span><strong t-esc="order.name"/></span>
-                                                    <span class="badge badge-info" t-esc="order.state"/>
-                                                </div>
-                                                <small class="text-muted">
-                                                    <t t-esc="order.date_order.strftime('%Y-%m-%d')"/> - $<t t-esc="order.amount_total"/>
-                                                </small>
-                                            </div>
-                                        </t>
+                                
+                                <!-- Brand Filter -->
+                                <div class="filter-group">
+                                    <h6>Brands</h6>
+                                    <t t-foreach="brands" t-as="brand_item">
+                                        <a t-att-href="'/shop/search?brand=%s' % brand_item" class="filter-option" t-esc="brand_item"/>
                                     </t>
-                                    <t t-else="">
-                                        <p class="text-muted">No orders yet.</p>
+                                </div>
+                                
+                                <!-- Color Filter -->
+                                <div class="filter-group">
+                                    <h6>Colors</h6>
+                                    <t t-foreach="colors" t-as="color_item">
+                                        <a t-att-href="'/shop/search?color=%s' % color_item" class="filter-option" t-esc="color_item"/>
                                     </t>
                                 </div>
                             </div>
                         </div>
                         
-                        <!-- B2B Products -->
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>B2B Special Pricing</h5>
-                                </div>
-                                <div class="card-body">
-                                    <t t-if="products">
-                                        <t t-foreach="products[:5]" t-as="product">
-                                            <div class="border-bottom pb-2 mb-2">
-                                                <div class="d-flex justify-content-between">
-                                                    <span t-esc="product.name"/>
-                                                    <span class="text-success">$<t t-esc="product.b2b_price"/></span>
-                                                </div>
-                                                <small class="text-muted">
-                                                    Regular: $<t t-esc="product.list_price"/> | Min Qty: <t t-esc="int(product.b2b_min_qty)"/>
-                                                </small>
-                                            </div>
-                                        </t>
-                                        <a href="/shop?customer_type=b2b" class="btn btn-primary btn-sm">View All B2B Products</a>
-                                    </t>
-                                    <t t-else="">
-                                        <p class="text-muted">No B2B products available.</p>
-                                    </t>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </t>
-    </template>
-    
-    <!-- Stock Unavailable -->
-    <template id="stock_unavailable" name="Stock Unavailable">
-        <t t-call="website.layout">
-            <div id="wrap" class="oe_structure oe_empty">
-                <div class="container mt-4 text-center">
-                    <div class="alert alert-warning">
-                        <h3><i class="fa fa-exclamation-triangle"></i> Insufficient Stock</h3>
-                        <p>Sorry, <strong t-esc="product.name"/> is not available in the requested quantity.</p>
-                        <p>Available: <strong t-esc="int(available_qty)"/> units | Requested: <strong t-esc="int(requested_qty)"/> units</p>
-                    </div>
-                    
-                    <div class="mt-4">
-                        <a href="/shop" class="btn btn-primary">Continue Shopping</a>
-                        <a href="/shop/cart" class="btn btn-secondary">View Cart</a>
-                    </div>
-                </div>
-            </div>
-        </t>
-    </template>
-    
-    <!-- Order Tracking -->
-    <template id="order_tracking" name="Order Tracking">
-        <t t-call="website.layout">
-            <div id="wrap" class="oe_structure oe_empty">
-                <div class="container mt-4">
-                    <h2>Order Tracking</h2>
-                    <p>Tracking Number: <strong t-esc="tracking_number"/></p>
-                    
-                    <div class="row">
-                        <div class="col-md-8">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>Order Status</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <p><strong>Order Number:</strong> <t t-esc="order.name"/></p>
-                                            <p><strong>Status:</strong> <span class="badge badge-info" t-esc="order.state"/></p>
-                                            <p><strong>Delivery Method:</strong> <t t-esc="order.delivery_method.replace('_', ' ').title()"/></p>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <p><strong>Order Date:</strong> <t t-esc="order.date_order.strftime('%Y-%m-%d %H:%M')"/></p>
-                                            <t t-if="order.delivery_date">
-                                                <p><strong>Delivery Date:</strong> <t t-esc="order.delivery_date.strftime('%Y-%m-%d %H:%M')"/></p>
+                        <!-- Products -->
+                        <div class="col-md-9">
+                            <div class="row">
+                                <t t-foreach="products" t-as="product">
+                                    <div class="col-md-4 mb-4">
+                                        <div class="card h-100">
+                                            <t t-if="product.image_1920">
+                                                <img t-att-src="'/web/image/product.template/%s/image_1920/300x300' % product.id" 
+                                                     class="card-img-top" style="height: 200px; object-fit: cover;" 
+                                                     t-att-alt="product.name"/>
                                             </t>
-                                            <p><strong>Total:</strong> $<t t-esc="order.amount_total"/></p>
+                                            <div class="card-body">
+                                                <h6 class="card-title" t-esc="product.name"/>
+                                                <p class="card-text">
+                                                    <small class="text-muted">
+                                                        <t t-esc="product.brand"/> | <t t-esc="product.color"/>
+                                                    </small>
+                                                </p>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="h6 text-primary">$<t t-esc="product.list_price"/></span>
+                                                    <form action="/shop/cart/update" method="post">
+                                                        <input type="hidden" name="product_id" t-att-value="product.product_variant_id.id"/>
+                                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                        <button type="submit" class="btn btn-sm btn-primary">Add to Cart</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+                            
+                            <t t-if="not products">
+                                <div class="alert alert-info text-center">
+                                    <h4>No products found</h4>
+                                    <p>Try adjusting your search criteria or browse our categories.</p>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Wishlist Page -->
+    <template id="wishlist_page" name="My Wishlist">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <section class="container my-5">
+                    <div class="row">
+                        <div class="col-12">
+                            <h2>My Wishlist</h2>
+                            <p class="text-muted">Save your favorite items for later</p>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <t t-foreach="wishlist_items" t-as="item">
+                            <div class="col-md-4 col-lg-3 mb-4">
+                                <div class="card h-100">
+                                    <t t-if="item.product_image">
+                                        <img t-att-src="'/web/image/fashion.wishlist/%s/product_image/300x300' % item.id" 
+                                             class="card-img-top" style="height: 200px; object-fit: cover;" 
+                                             t-att-alt="item.product_name"/>
+                                    </t>
+                                    <div class="card-body">
+                                        <h6 class="card-title" t-esc="item.product_name"/>
+                                        <p class="card-text">
+                                            <small class="text-muted">
+                                                Brand: <t t-esc="item.product_brand or 'N/A'"/>
+                                            </small>
+                                        </p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="h6 text-primary">$<t t-esc="item.product_price"/></span>
+                                            <div>
+                                                <form action="/shop/cart/update" method="post" class="d-inline">
+                                                    <input type="hidden" name="product_id" t-att-value="item.product_id.product_variant_id.id"/>
+                                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                    <button type="submit" class="btn btn-sm btn-primary">Add to Cart</button>
+                                                </form>
+                                                <a t-att-href="'/shop/wishlist/remove/%s' % item.id" class="btn btn-sm btn-outline-danger ms-1">
+                                                    <i class="fa fa-trash"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </t>
                     </div>
-                </div>
+                    
+                    <t t-if="not wishlist_items">
+                        <div class="alert alert-info text-center">
+                            <h4>Your wishlist is empty</h4>
+                            <p>Start adding products to your wishlist by clicking the heart icon on product pages.</p>
+                            <a href="/shop" class="btn btn-primary">Continue Shopping</a>
+                        </div>
+                    </t>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <!-- Error Templates -->
+    <template id="validation_error" name="Validation Error">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <section class="container my-5 text-center">
+                    <div class="alert alert-warning">
+                        <h4>Validation Error</h4>
+                        <p t-esc="error"/>
+                        <a href="javascript:history.back()" class="btn btn-secondary">Go Back</a>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+
+    <template id="general_error" name="General Error">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <section class="container my-5 text-center">
+                    <div class="alert alert-danger">
+                        <h4>An Error Occurred</h4>
+                        <p t-esc="error"/>
+                        <a href="/" class="btn btn-primary">Return Home</a>
+                    </div>
+                </section>
             </div>
         </t>
     </template>

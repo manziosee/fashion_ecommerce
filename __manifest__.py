@@ -14,8 +14,8 @@
     
     # Dependencies for the module
     'depends': [
-    'base', 'product', 'sale_management', 'stock', 'account', 'website', 'website_sale'
-],
+        'base', 'product', 'sale_management', 'stock', 'account', 'website', 'website_sale'
+    ],
 
     # XML/CSV data files
     'data': [
@@ -23,8 +23,11 @@
         'data/product_categories.xml',
         'data/demo_data.xml',
         'data/website_configuration.xml',
+        'data/website_pages.xml',
         'views/product_views.xml',
         'views/sale_order_views.xml',
+        'views/wishlist_views.xml',
+        'views/review_views.xml',
         'views/ecommerce_templates.xml',
         'views/website_templates.xml',
         'views/website_pages.xml',
@@ -34,6 +37,8 @@
     'assets': {
         'web.assets_frontend': [
             'fashion_ecommerce/static/src/css/fashion.css',
+            'fashion_ecommerce/static/src/js/wishlist.js',
+            'fashion_ecommerce/static/src/js/search.js',
         ],
     },
 

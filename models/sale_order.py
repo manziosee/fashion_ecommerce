@@ -35,13 +35,16 @@ class SaleOrder(models.Model):
             self.payment_terms = '30_days'
             # Apply B2B pricing to order lines
             for line in self.order_line:
-                if line.product_id.b2b_price > 0:
+                if hasattr(line.product_id, 'b2b_price') and line.product_id.b2b_price > 0:
                     line.price_unit = line.product_id.b2b_price
+                elif hasattr(line.product_id, 'list_price'):
+                    line.price_unit = line.product_id.list_price
         else:
             self.payment_terms = 'immediate'
             # Revert to standard pricing
             for line in self.order_line:
-                line.price_unit = line.product_id.list_price
+                if hasattr(line.product_id, 'list_price'):
+                    line.price_unit = line.product_id.list_price
     
     def action_confirm(self):
         """Override to add custom logic for fashion orders"""
@@ -67,6 +70,12 @@ class SaleOrder(models.Model):
         self.delivery_date = fields.Datetime.now()
         
         # Send notification email to customer
-        template = self.env.ref('fashion_ecommerce.email_template_order_shipped', raise_if_not_found=False)
-        if template:
-            template.send_mail(self.id, force_send=True)
+        try:
+            template = self.env.ref('fashion_ecommerce.email_template_order_shipped', raise_if_not_found=False)
+            if template:
+                template.send_mail(self.id, force_send=True)
+        except Exception as e:
+            import logging
+            _logger = logging.getLogger(__name__)
+            _logger.warning(f"Failed to send shipping notification email: {str(e)}")
+            # Continue execution even if email fails

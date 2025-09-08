@@ -3,3 +3,7 @@ access_fashion_product,access_fashion_product,model_product_template,,1,1,1,1
 access_fashion_sale,access_fashion_sale,model_sale_order,,1,1,1,1
 access_fashion_inventory_report,access_fashion_inventory_report,fashion_ecommerce.model_fashion_inventory_report,,1,0,0,0
 access_stock_quant,access_stock_quant,stock.model_stock_quant,,1,1,1,1
+access_fashion_wishlist,access_fashion_wishlist,fashion_ecommerce.model_fashion_wishlist,,1,1,1,1
+access_fashion_product_review,access_fashion_product_review,fashion_ecommerce.model_fashion_product_review,,1,1,1,1
+access_fashion_wishlist_user,access_fashion_wishlist_user,fashion_ecommerce.model_fashion_wishlist,base.group_portal,1,1,1,1
+access_fashion_product_review_user,access_fashion_product_review_user,fashion_ecommerce.model_fashion_product_review,base.group_portal,1,1,1,0

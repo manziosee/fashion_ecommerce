@@ -168,7 +168,7 @@
                         <div class="col-12">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h3>Men's Fashion Collection</h3>
-                                <span class="badge bg-info fs-6"><t t-esc="len(products)"/> Products Available</span>
+                                <span class="badge bg-info fs-6"><t t-esc="products|length"/> Products Available</span>
                             </div>
                             <hr/>
                         </div>
@@ -225,6 +225,31 @@
                             <a href="/" class="btn btn-primary">Return to Homepage</a>
                         </div>
                     </t>
+                    
+                    <!-- Pagination -->
+                    <t t-if="total_pages and total_pages &gt; 1">
+                        <nav aria-label="Product pagination" class="mt-4">
+                            <ul class="pagination justify-content-center fashion-pagination">
+                                <t t-if="current_page &gt; 1">
+                                    <li class="page-item">
+                                        <a class="page-link" t-att-href="'/mens-clothing?page=%s' % (current_page - 1)">Previous</a>
+                                    </li>
+                                </t>
+                                
+                                <t t-foreach="range(1, total_pages + 1)" t-as="page_num">
+                                    <li t-att-class="'page-item active' if page_num == current_page else 'page-item'">
+                                        <a class="page-link" t-att-href="'/mens-clothing?page=%s' % page_num" t-esc="page_num"/>
+                                    </li>
+                                </t>
+                                
+                                <t t-if="current_page &lt; total_pages">
+                                    <li class="page-item">
+                                        <a class="page-link" t-att-href="'/mens-clothing?page=%s' % (current_page + 1)">Next</a>
+                                    </li>
+                                </t>
+                            </ul>
+                        </nav>
+                    </t>
                 </section>
             </div>
         </t>
@@ -252,7 +277,7 @@
                         <div class="col-12">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h3>Women's Fashion Collection</h3>
-                                <span class="badge bg-info fs-6"><t t-esc="len(products)"/> Products Available</span>
+                                <span class="badge bg-info fs-6"><t t-esc="products|length"/> Products Available</span>
                             </div>
                             <hr/>
                         </div>
@@ -309,6 +334,31 @@
                             <a href="/" class="btn btn-primary">Return to Homepage</a>
                         </div>
                     </t>
+                    
+                    <!-- Pagination -->
+                    <t t-if="total_pages and total_pages &gt; 1">
+                        <nav aria-label="Product pagination" class="mt-4">
+                            <ul class="pagination justify-content-center fashion-pagination">
+                                <t t-if="current_page &gt; 1">
+                                    <li class="page-item">
+                                        <a class="page-link" t-att-href="'/womens-clothing?page=%s' % (current_page - 1)">Previous</a>
+                                    </li>
+                                </t>
+                                
+                                <t t-foreach="range(1, total_pages + 1)" t-as="page_num">
+                                    <li t-att-class="'page-item active' if page_num == current_page else 'page-item'">
+                                        <a class="page-link" t-att-href="'/womens-clothing?page=%s' % page_num" t-esc="page_num"/>
+                                    </li>
+                                </t>
+                                
+                                <t t-if="current_page &lt; total_pages">
+                                    <li class="page-item">
+                                        <a class="page-link" t-att-href="'/womens-clothing?page=%s' % (current_page + 1)">Next</a>
+                                    </li>
+                                </t>
+                            </ul>
+                        </nav>
+                    </t>
                 </section>
             </div>
         </t>
@@ -336,7 +386,7 @@
                         <div class="col-12">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h3>Children's Fashion Collection</h3>
-                                <span class="badge bg-info fs-6"><t t-esc="len(products)"/> Products Available</span>
+                                <span class="badge bg-info fs-6"><t t-esc="products|length"/> Products Available</span>
                             </div>
                             <hr/>
                         </div>
@@ -393,8 +443,34 @@
                             <a href="/" class="btn btn-primary">Return to Homepage</a>
                         </div>
                     </t>
+                    
+                    <!-- Pagination -->
+                    <t t-if="total_pages and total_pages &gt; 1">
+                        <nav aria-label="Product pagination" class="mt-4">
+                            <ul class="pagination justify-content-center fashion-pagination">
+                                <t t-if="current_page &gt; 1">
+                                    <li class="page-item">
+                                        <a class="page-link" t-att-href="'/childrens-clothing?page=%s' % (current_page - 1)">Previous</a>
+                                    </li>
+                                </t>
+                                
+                                <t t-foreach="range(1, total_pages + 1)" t-as="page_num">
+                                    <li t-att-class="'page-item active' if page_num == current_page else 'page-item'">
+                                        <a class="page-link" t-att-href="'/childrens-clothing?page=%s' % page_num" t-esc="page_num"/>
+                                    </li>
+                                </t>
+                                
+                                <t t-if="current_page &lt; total_pages">
+                                    <li class="page-item">
+                                        <a class="page-link" t-att-href="'/childrens-clothing?page=%s' % (current_page + 1)">Next</a>
+                                    </li>
+                                </t>
+                            </ul>
+                        </nav>
+                    </t>
                 </section>
             </div>
         </t>
     </template>
+
 </odoo>

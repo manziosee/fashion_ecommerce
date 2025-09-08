@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Website Page Records for Category Pages -->
+    <record id="website_page_mens_clothing" model="website.page">
+        <field name="name">Men's Clothing</field>
+        <field name="url">/mens-clothing</field>
+        <field name="website_published">True</field>
+        <field name="is_published">True</field>
+        <field name="view_id" ref="fashion_ecommerce.mens_clothing_page"/>
+    </record>
+
+    <record id="website_page_womens_clothing" model="website.page">
+        <field name="name">Women's Clothing</field>
+        <field name="url">/womens-clothing</field>
+        <field name="website_published">True</field>
+        <field name="is_published">True</field>
+        <field name="view_id" ref="fashion_ecommerce.womens_clothing_page"/>
+    </record>
+
+    <record id="website_page_childrens_clothing" model="website.page">
+        <field name="name">Children's Clothing</field>
+        <field name="url">/childrens-clothing</field>
+        <field name="website_published">True</field>
+        <field name="is_published">True</field>
+        <field name="view_id" ref="fashion_ecommerce.childrens_clothing_page"/>
+    </record>
+
+    <!-- Website Menu Items -->
+    <record id="website_menu_mens_clothing" model="website.menu">
+        <field name="name">Men's Clothing</field>
+        <field name="url">/mens-clothing</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="website_menu_womens_clothing" model="website.menu">
+        <field name="name">Women's Clothing</field>
+        <field name="url">/womens-clothing</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">11</field>
+    </record>
+
+    <record id="website_menu_childrens_clothing" model="website.menu">
+        <field name="name">Children's Clothing</field>
+        <field name="url">/childrens-clothing</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">12</field>
+    </record>
+</odoo>
